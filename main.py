@@ -5,22 +5,28 @@ from pygame.locals import *
 from ship import Ship
 from asteroid import Asteroid
 import random
+import json
 
 pygame.init()
 screen_info = pygame.display.Info()
 width = screen_info.current_w
 height = screen_info.current_h
 size = (width, height)
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 clock = pygame.time.Clock()
-player = Ship((width // 2, height // 2))
-asteroids = pygame.sprite.Group()
-asteroid_count = 5
+data = json.load(open('game.json', 'rb'))
+asteroids = None
+asteroid_count = None
+player = None
 
 def init():
   global asteroid_count
   global asteroids
-  asteroids.empty
+  global player
+  player = Ship((width // 2, height // 2))
+  asteroids = pygame.sprite.Group()
+  asteroid_count = 5  
+  asteroids.empty()
   for i in range(asteroid_count):
     ran_x = random.randint(50, width - 50)
     ran_y = random.randint(15,60)
@@ -57,10 +63,11 @@ def main():
     asteroids.update()
     was_hit = pygame.sprite.spritecollide(player, asteroids, True)
     if was_hit:
-      player.health -= 20
+      player.health -= data['asteroid']['damage']
       print('ship was hit. health is', player.health)
       if player.health == 0:
         print('game over')
+        init()
     asteroids.draw(screen)
     screen.blit(player.image, player.rect)
     pygame.display.update()

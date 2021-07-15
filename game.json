@@ -1,5 +1,9 @@
 {
   "player": {
-    "health": 100
+    "health": 100,
+    "rotation": -90
+  },
+  "asteroid": {
+    "damage": 20
   }
 }
