@@ -10,7 +10,7 @@ class Asteroid(pygame.sprite.Sprite):
     self.rect = self.image.get_rect()
     self.rect.center = pos
     self.speed = pygame.math.Vector2(0, 3)
-    self.speed.rotate_ip(random.randint(0, 360))
+    self.speed.rotate_ip(random.randint(-80, 80))
 
   def update(self):
     screen_info = pygame.display.Info()

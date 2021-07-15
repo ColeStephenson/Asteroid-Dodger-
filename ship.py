@@ -9,7 +9,7 @@ class Ship(pygame.sprite.Sprite):
     self.image = pygame.transform.rotate(self.image, -90)
     self.rect = self.image.get_rect()
     self.rect.center = pos
-    self.heatlh = 100
+    self.health = 100
     self.speed = pygame.math.Vector2(0, 0)
   
   def update(self):

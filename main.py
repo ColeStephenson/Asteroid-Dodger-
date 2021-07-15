@@ -15,18 +15,17 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 player = Ship((width // 2, height // 2))
 asteroids = pygame.sprite.Group()
-asteroid_count = 2
+asteroid_count = 5
 
 def init():
   global asteroid_count
   global asteroids
   asteroids.empty
   for i in range(asteroid_count):
-    asteroids.add(Asteroid(
-      (random.randint(50, width - 50),
-      random.randint (50, height - 50)),
-      random.randint(15, 60)
-    ))
+    ran_x = random.randint(50, width - 50)
+    ran_y = random.randint(15,60)
+    ran_size = random.randint(30, 60)
+    asteroids.add(Asteroid((ran_x, ran_y), ran_size))
 
 def main():
   init()
@@ -56,6 +55,12 @@ def main():
     screen.fill((0, 0, 0))        # comment this out for something funny ;))
     player.update()
     asteroids.update()
+    was_hit = pygame.sprite.spritecollide(player, asteroids, True)
+    if was_hit:
+      player.health -= 20
+      print('ship was hit. health is', player.health)
+      if player.health == 0:
+        print('game over')
     asteroids.draw(screen)
     screen.blit(player.image, player.rect)
     pygame.display.update()
