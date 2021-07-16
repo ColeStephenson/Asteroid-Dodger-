@@ -20,7 +20,7 @@ level = 1
 asteroids = None
 asteroid_count = None
 player = None
-player_speed = None
+player_speed = 2
 timer = None
 game_font = pygame.font.SysFont('truetype', 50)
 level_image = None
@@ -33,12 +33,12 @@ def init():
   global player_speed
   global timer
   global level_image
-  level_image = game_font.render(str(level), False, (255, 255, 255), (0, 0, 0))
+  level_image = game_font.render(str(level, False, (255, 255, 255), (0, 0, 0))
   player_speed = level * 2
   player = Ship((width // 2, height // 2))
   asteroids = pygame.sprite.Group()
-  timer = Timer(30*level)
-  asteroid_count = level * 5
+  timer = Timer(30)
+  asteroid_count = 5  
   asteroids.empty()
   for i in range(asteroid_count):
     ran_x = random.randint(50, width - 50)
